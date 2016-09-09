@@ -1,0 +1,22 @@
+{
+  "name": "@types/sat",
+  "description": "TypeScript definitions for sat.js",
+  "version": "0.0.26-fixed",
+  "author": {
+    "name": "Hou Chunlei",
+    "email": "https://github.com/omni360"
+  },
+  "license": "MIT",
+  "main": "",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ryan.cavanaugh@microsoft.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "typings": "index.d.ts"
+}
