@@ -2,6 +2,7 @@
 // import * as eaw from 'eastasianwidth';
 // import * as SAT from 'sat';
 import NicoComment from './nico-comment';
+import { Position } from './enum';
 
 function hasKey(obj: any, key: string): boolean {
   return ({}).hasOwnProperty.call(obj, key);
@@ -43,6 +44,19 @@ class NicoCommentParser {
     });
 
     return chats;
+  }
+
+  static checkPosType(chat: NicoComment.ParsedChat): Position {
+    const commands = chat.command;
+    for (const cmd of commands) {
+      switch (cmd) {
+        case Position.Top: return Position.Top;
+        case Position.Bottom: return Position.Bottom;
+        case Position.Default: return Position.Default;
+        default: break;
+      }
+    }
+    return Position.Default;
   }
 }
 
