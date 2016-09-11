@@ -1,0 +1,12 @@
+{
+  "thread": {
+    "resultcode": 0,
+    "thread": 9999999999,
+    "last_res": 9999999,
+    "ticket": "0x1111000",
+    "revision": 99,
+    "server_time": 1577804400,
+    "click_revision": 25252,
+    "num_clicks": 1
+  }
+}

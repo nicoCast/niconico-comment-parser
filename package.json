@@ -39,9 +39,9 @@
     "test": "npm-run-all -c --silent test:clean test:build test:run test:clean",
     "test:build": "tsc -p ./test",
     "test:clean": "rimraf src/**/*.js src/**/*.js.map src/**/*.d.ts test/**/*.js test/**/*.js.map test/**/*.d.ts",
-    "test:run": "istanbul cover _mocha -- ./test/**/*.js",
+    "test:run": "istanbul cover _mocha -- ./test/index.js",
     "test:remap": "cd coverage && remap-istanbul -i coverage.json -o html-report -t html",
-    "test:mocha": "mocha --require intelli-espower-loader",
+    "test:mocha": "mocha --no-exit --require intelli-espower-loader",
     "watch": "npm-run-all build:clean 'build:run -- -w'"
   }
 }

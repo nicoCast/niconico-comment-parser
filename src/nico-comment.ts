@@ -11,7 +11,7 @@ declare namespace NicoComment {
     no: number;
     vpos: number;
     date: number;
-    mail?: string | string[];
+    mail?: string;
     user_id?: string;
     anonymity?: number;
     leaf?: number;
@@ -19,6 +19,14 @@ declare namespace NicoComment {
     premium?: number;
     score?: number;
     deleted?: number;
+  }
+
+  export interface ParsedChat {
+    no: number;
+    time: number;
+    command: string[];
+    content: string;
+    pos: number;
   }
 
   export interface RawThread {
@@ -38,7 +46,7 @@ declare namespace NicoComment {
 
   export interface Result {
     thread: NicoComment.Thread;
-    chats: NicoComment.Chat[];
+    chats: NicoComment.ParsedChat[];
   }
 }
 
