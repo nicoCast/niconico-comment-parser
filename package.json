@@ -6,7 +6,9 @@
     "eastasianwidth": "0.1.1",
     "lodash": "4.15.0",
     "lodash.concat": "4.5.0",
+    "lodash.findindex": "4.6.0",
     "lodash.groupby": "4.6.0",
+    "lodash.sortby": "4.7.0",
     "sat": "0.5.0"
   },
   "devDependencies": {
@@ -40,7 +42,7 @@
     "clean": "npm-run-all -c --silent -p *:clean",
     "test": "npm-run-all -c --silent test:clean test:build test:run test:clean",
     "test:build": "tsc -p ./test",
-    "test:clean": "rimraf src/**/*.js src/**/*.js.map src/**/*.d.ts test/**/*.js test/**/*.js.map test/**/*.d.ts",
+    "test:clean": "rimraf \"{src,test}/**/*{.d.ts,.js,.js.map}\"",
     "test:mocha": "mocha --no-exit --require intelli-espower-loader",
     "test:remap": "cd coverage && remap-istanbul -i coverage.json -o html-report -t html",
     "test:run": "istanbul cover _mocha -- ./test/index.js",

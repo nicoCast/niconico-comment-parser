@@ -7,7 +7,8 @@
       "es2017"
     ],
     "types": [
-      "node"
+      "node",
+      "lodash"
     ],
     "declaration": true,
     "noImplicitAny": true,

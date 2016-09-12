@@ -1,8 +1,47 @@
 /* eslint-disable camelcase */
+import * as SAT from 'sat';
 import * as eaw from 'eastasianwidth';
 import { Position, Size } from './enum';
 
+const PLAYER_WIDTH = 672;
+
 namespace NicoComment {
+  export class CommentFrame {
+    width: number;
+    time: number;
+    limit: number;
+    polygon: SAT.Polygon;
+
+    constructor({ width, time } : { width: number, time: number }) {
+      this.limit = 4;
+      this.width = width;
+      this.time = time;
+      this.polygon = new SAT.Polygon(
+        new SAT.Vector(time, 0),
+        [
+          new SAT.Vector(time, - width),
+          new SAT.Vector(time + 4, PLAYER_WIDTH),
+          new SAT.Vector(time + 4, PLAYER_WIDTH + width),
+        ]
+      );
+    }
+
+    isCollided(comments: CommentFrame[]): boolean {
+      return comments.some((comment) => SAT.testPolygonPolygon(comment.polygon, this.polygon));
+    }
+
+    setLimit(limit: number): void {
+      this.limit = limit;
+    }
+
+    clone(): CommentFrame {
+      return new CommentFrame({
+        width: this.width,
+        time: this.time,
+      });
+    }
+  }
+
   export class ParsedChat {
     no: number;
     time: number;
@@ -60,6 +99,10 @@ namespace NicoComment {
         }
       }
       return Position.Default;
+    }
+
+    setPos(pos: number): void {
+      this.pos = pos;
     }
   }
 

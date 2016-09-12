@@ -18,7 +18,7 @@ describe('NicoCommentParser', () => {
     NicoCommentParserTest.parseTest(testList);
   });
 
-  describe('::calculatePosition', () => {
+  describe('::calcPos', () => {
     const testList = [
       {
         description: 'no command',
@@ -45,7 +45,7 @@ describe('NicoCommentParser', () => {
             return chat;
           });
         const results =
-          NicoCommentParser.calculatePosition(chats).map((c) => c.command);
+          NicoCommentParser.calcPos(chats).map((c) => c.command);
         assert.deepStrictEqual(results, test.expect);
       });
     });
