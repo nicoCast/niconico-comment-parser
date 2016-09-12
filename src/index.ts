@@ -1,6 +1,6 @@
 // import * as fs from 'fs';
 // import * as SAT from 'sat';
-import _ from './lodash';
+import _ from './utils/lodash';
 import NicoComment from './nico-comment';
 import { Position } from './enum';
 
