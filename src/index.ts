@@ -1,6 +1,6 @@
 // import * as fs from 'fs';
-// import * as eaw from 'eastasianwidth';
 // import * as SAT from 'sat';
+import _ from './lodash';
 import NicoComment from './nico-comment';
 import { Position } from './enum';
 
@@ -30,33 +30,19 @@ class NicoCommentParser {
   static extractChats(rawdata: NicoComment.RawData[]): NicoComment.ParsedChat[] {
     const rawChats =
       <NicoComment.RawChat[]> rawdata.filter((c) => hasKey(c, 'chat'));
-
-    const chats = rawChats.map((rawChat) => {
-      const chat = rawChat.chat;
-      const parsedChat = <NicoComment.ParsedChat> {
-        no: chat.no,
-        time: chat.vpos / 100,
-        command: (chat.mail || '').split('\x20').filter((c) => c),
-        content: chat.content,
-        pos: 0,
-      };
-      return parsedChat;
-    });
+    const chats =
+      rawChats.map((rawChat) => new NicoComment.ParsedChat(rawChat));
 
     return chats;
   }
 
-  static checkPosType(chat: NicoComment.ParsedChat): Position {
-    const commands = chat.command;
-    for (const cmd of commands) {
-      switch (cmd) {
-        case Position.Top: return Position.Top;
-        case Position.Bottom: return Position.Bottom;
-        case Position.Default: return Position.Default;
-        default: break;
-      }
-    }
-    return Position.Default;
+  static calculatePosition(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {
+    const groups = _.groupBy(chats, (chat: NicoComment.ParsedChat) => chat.getPosType());
+    groups[Position.Top] = groups[Position.Top] || [];
+    groups[Position.Bottom] = groups[Position.Bottom] || [];
+    groups[Position.Default] = groups[Position.Default] || [];
+
+    return _.concat(groups[Position.Top], groups[Position.Bottom], groups[Position.Default]);
   }
 }
 

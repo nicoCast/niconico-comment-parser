@@ -1,0 +1,25 @@
+{
+  "author": {
+    "name": "Brian Zengel",
+    "email": "https://github.com/bczengel"
+  },
+  "description": "TypeScript definitions for Lo-Dash 4.14",
+  "dist": {
+    "shasum": "b774c5519dac1fec756937e9b5b6c7ca036c5605",
+    "tarball": "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.34.tgz"
+  },
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ryan.cavanaugh@microsoft.com"
+    }
+  ],
+  "name": "@types/lodash",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "typings": "index.d.ts",
+  "version": "4.14.34-fixed"
+}

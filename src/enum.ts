@@ -8,6 +8,15 @@ export namespace Position {
   export const Default: Position = 'naka';
 }
 
+export type Size = 'big' | 'small' | 'medium';
+
+export namespace Size {
+  export const Big: Size = 'big';
+  export const Small: Size = 'small';
+  export const Medium: Size = 'medium';
+}
+
 export default {
   Position,
+  Size,
 };

@@ -37,7 +37,7 @@ export default function NicoCommentParser$$parse$test(testList: string[]) : void
       thread: <NicoComment.Thread> {},
       chats: <NicoComment.ParsedChat[]> [],
     };
-    assert.deepStrictEqual(result, expect);
+    assert.deepEqual(result, expect);
   }));
 
   describe('([RawThread])', wrapFunc(() => {
@@ -52,7 +52,7 @@ export default function NicoCommentParser$$parse$test(testList: string[]) : void
     };
 
     const result = NicoCommentParser.parse(data);
-    assert.deepStrictEqual(result, expect);
+    assert.deepEqual(result, expect);
   }));
 
   describe('([RawThread, ...RawChat[]])', wrapFunc(() => {
@@ -65,6 +65,6 @@ export default function NicoCommentParser$$parse$test(testList: string[]) : void
     const expect = expectedResult;
 
     const result = NicoCommentParser.parse(data);
-    assert.deepStrictEqual(result, expect);
+    assert.deepEqual(result, expect);
   }));
 }
