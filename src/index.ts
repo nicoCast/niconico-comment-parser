@@ -32,7 +32,7 @@ class NicoCommentParser {
     const rawChats =
       <NicoComment.RawChat[]> rawdata.filter((c) => hasKey(c, 'chat'));
     const chats = rawChats.map((c) => c.chat);
-    return chats;
+    return chats.filter((c) => c.content);
   }
 
   static calcPos(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {

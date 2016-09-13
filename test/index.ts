@@ -27,14 +27,48 @@ describe('NicoCommentParser', () => {
   });
 
   describe('::extractChats', () => {
-    it('', () => {
+    let chatBase : NicoComment.Chat;
+    before(() => {
+      chatBase = {
+        thread: 0,
+        no: 0,
+        vpos: 0,
+        date: 0,
+      };
+    });
+
+    it('chats have content', () => {
       const expect = [
-        { no: 123456 },
-        { no: 654321 },
+        Object.assign({}, chatBase, { no: 123456, content: 'Hello' }),
+        Object.assign({}, chatBase, { no: 654321, content: 'World' }),
       ];
       const rawData = <NicoComment.RawData[]> [
-        { chat: { no: 123456 } },
-        { chat: { no: 654321 } },
+        {
+          chat: <NicoComment.Chat>
+            Object.assign({}, chatBase, { no: 123456, content: 'Hello' }),
+        },
+        {
+          chat: <NicoComment.Chat>
+            Object.assign({}, chatBase, { no: 654321, content: 'World' }),
+        },
+      ];
+      const result = NicoCommentParser.extractChats(rawData);
+      assert.deepEqual(expect, result);
+    });
+
+    it('chats haven\'t content', () => {
+      const expect = [
+        Object.assign({}, chatBase, { no: 123456, content: 'Hello' }),
+      ];
+      const rawData = <NicoComment.RawData[]> [
+        {
+          chat: <NicoComment.Chat>
+            Object.assign({}, chatBase, { no: 123456, content: 'Hello' }),
+        },
+        {
+          chat: <NicoComment.Chat>
+            Object.assign({}, chatBase, { no: 654321 }),
+        },
       ];
       const result = NicoCommentParser.extractChats(rawData);
       assert.deepEqual(expect, result);
