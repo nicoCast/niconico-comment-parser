@@ -2,6 +2,29 @@
 
 niconico comment parser.
 
+
+## Usage
+
+```js
+const axios = require('axios');
+const NicoCommentParser = require('niconico-comment-parser').default;
+
+const reqData = [{
+  'thread_leaves': {
+    'thread': 1173108780,
+    'content': '0-9999:100,500',
+    'scores': 1,
+    'threadkey': '',
+    'force_184': 1
+  }
+}];
+
+axios.post('http://msg.nicovideo.jp/10/api.json/', reqData)
+  .then((res) => NicoCommentParser.parse(res.data))
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err.stack || err));
+```
+
 ## Contribution
 
 1. [Fork it]
