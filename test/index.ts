@@ -18,6 +18,35 @@ describe('NicoCommentParser', () => {
     NicoCommentParserTest.parseTest(testList);
   });
 
+  describe('::extractThread', () => {
+    it('', () => {
+      const thread = <NicoComment.Thread> {
+        thread: 123456,
+      };
+      const result = NicoCommentParser.extractThread([{ thread }]);
+      assert.deepEqual(thread, result);
+    });
+  });
+
+  describe('::extractChats', () => {
+    it('', () => {
+      const expect = [
+        { no: 123456 },
+        { no: 654321 },
+      ];
+      const rawData = <NicoComment.RawData[]> [
+        { chat: { no: 123456 } },
+        { chat: { no: 654321 } },
+      ];
+      const result = NicoCommentParser.extractChats(rawData);
+      assert.deepEqual(expect, result);
+    });
+  });
+
+  describe('::calcTopPos', () => {});
+  describe('::calcBottomPos', () => {});
+  describe('::calcDefaultPos', () => {});
+
   describe('::calcPos', () => {
     const testList = [
       {
@@ -36,11 +65,7 @@ describe('NicoCommentParser', () => {
       specify(test.description, () => {
         const chats = <NicoComment.ParsedChat[]>
           test.commands.map((command) => {
-            const chat = new NicoComment.ParsedChat(
-              <NicoComment.RawChat> {
-                chat: <NicoComment.Chat> {}
-              }
-            );
+            const chat = new NicoComment.ParsedChat(<NicoComment.Chat> {});
             chat.command = command;
             return chat;
           });
@@ -55,11 +80,7 @@ describe('NicoCommentParser', () => {
 describe('NicoComment.ParsedChat', () => {
   let chat: NicoComment.ParsedChat;
   beforeEach(() => {
-    chat = new NicoComment.ParsedChat(
-      <NicoComment.RawChat> {
-        chat: <NicoComment.Chat> {}
-      }
-    );
+    chat = new NicoComment.ParsedChat(<NicoComment.Chat> {});
   });
 
   describe('#getPosType', () => {

@@ -12,10 +12,11 @@ class NicoCommentParser {
   static parse(rawdata: NicoComment.RawData[]): NicoComment.Result {
     const thread = NicoCommentParser.extractThread(rawdata);
     const chats = NicoCommentParser.extractChats(rawdata);
+    const parsedChats = chats.map((chat) => new NicoComment.ParsedChat(chat));
 
     return {
       thread,
-      chats: NicoCommentParser.calcPos(chats),
+      chats: NicoCommentParser.calcPos(parsedChats),
     };
   }
 
@@ -27,25 +28,18 @@ class NicoCommentParser {
     return thread;
   }
 
-  static extractChats(rawdata: NicoComment.RawData[]): NicoComment.ParsedChat[] {
+  static extractChats(rawdata: NicoComment.RawData[]): NicoComment.Chat[] {
     const rawChats =
       <NicoComment.RawChat[]> rawdata.filter((c) => hasKey(c, 'chat'));
-    const chats =
-      rawChats.map((rawChat) => new NicoComment.ParsedChat(rawChat));
-
+    const chats = rawChats.map((c) => c.chat);
     return chats;
   }
 
   static calcPos(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {
     const groups = _.groupBy(chats, (chat: NicoComment.ParsedChat) => chat.getPosType());
 
-    groups[Position.Top] = _.sortBy(groups[Position.Top] || [], ['time', 'no']);
     groups[Position.Top] = NicoCommentParser.calcTopPos(groups[Position.Top]);
-
-    groups[Position.Bottom] = _.sortBy(groups[Position.Bottom] || [], ['time', 'no']);
     groups[Position.Bottom] = NicoCommentParser.calcBottomPos(groups[Position.Bottom]);
-
-    groups[Position.Default] = _.sortBy(groups[Position.Default] || [], ['time', 'no']);
     groups[Position.Default] = NicoCommentParser.calcDefaultPos(groups[Position.Default]);
 
     const results =
@@ -53,11 +47,13 @@ class NicoCommentParser {
     return _.sortBy(results, ['time', 'no']);
   }
 
-  static calcTopPos(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {
+  static calcTopPos(chats : NicoComment.ParsedChat[] = []): NicoComment.ParsedChat[] {
+    const sortedChats = _.sortBy(chats, ['time', 'no']);
+
     let fields = <number[]> new Array(PLAYER_HEIGHT).fill(0);
     let currentTime = 0;
 
-    chats.forEach((chat) => {
+    sortedChats.forEach((chat) => {
       const deltaTime = chat.time - currentTime;
       fields = fields.map((limit) => Math.max(0, limit - deltaTime));
 
@@ -85,10 +81,11 @@ class NicoCommentParser {
 
       currentTime = chat.time;
     });
-    return chats;
+
+    return sortedChats;
   }
 
-  static calcBottomPos(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {
+  static calcBottomPos(chats : NicoComment.ParsedChat[] = []): NicoComment.ParsedChat[] {
     return NicoCommentParser.calcTopPos(chats).map((chat) => {
       chat.setPos(PLAYER_HEIGHT - (chat.pos + chat.getHeightPx()));
       return chat;
@@ -96,12 +93,14 @@ class NicoCommentParser {
   }
 
 
-  static calcDefaultPos(chats: NicoComment.ParsedChat[]): NicoComment.ParsedChat[] {
+  static calcDefaultPos(chats : NicoComment.ParsedChat[] = []): NicoComment.ParsedChat[] {
+    const sortedChats = _.sortBy(chats, ['time', 'no']);
+
     let fields =
       <NicoComment.CommentFrame[][]> new Array(PLAYER_HEIGHT).fill([]);
     let currentTime = 0;
 
-    chats.forEach((chat) => {
+    sortedChats.forEach((chat) => {
       const deltaTime = chat.time - currentTime;
       fields = fields.map((arr) => arr.map((comment) => {
         const limit = Math.max(0, comment.limit - deltaTime);
@@ -148,7 +147,8 @@ class NicoCommentParser {
 
       currentTime = chat.time;
     });
-    return chats;
+
+    return sortedChats;
   }
 }
 

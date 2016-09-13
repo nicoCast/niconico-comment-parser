@@ -49,8 +49,7 @@ namespace NicoComment {
     content: string;
     pos: number;
 
-    constructor(raw: RawChat) {
-      const chat = raw.chat;
+    constructor(chat: Chat) {
       this.no = chat.no;
       this.time = chat.vpos / 100;
       this.command = (chat.mail || '').split('\x20').filter((c) => c);
