@@ -45,7 +45,7 @@
     "test:clean": "rimraf \"{src,test}/**/*{.d.ts,.js,.js.map}\"",
     "test:mocha": "mocha --no-exit --require intelli-espower-loader",
     "test:remap": "cd coverage && remap-istanbul -i coverage.json -o html-report -t html",
-    "test:run": "istanbul cover _mocha -- ./test/index.js",
+    "test:run": "istanbul cover _mocha -- ./test/*.js",
     "watch": "npm-run-all build:clean 'build:run -- -w'"
   }
 }

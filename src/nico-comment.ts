@@ -87,6 +87,10 @@ namespace NicoComment {
       return Math.max(...lines.map((s) => eaw.length(s))) * 0.5;
     }
 
+    getWidthPx(): number {
+      return this.getWidthEm() * this.getHeightPx();
+    }
+
     getPosType(): Position {
       const commands = this.command;
       for (const cmd of commands) {
