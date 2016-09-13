@@ -203,33 +203,4 @@ describe('NicoCommentParser', () => {
       });
     });
   });
-
-  describe('::calcPos', () => {
-    // const testList = [
-    //   {
-    //     description: 'no command',
-    //     commands: [[], []],
-    //     expect: [[], []],
-    //   },
-    //   {
-    //     description: 'shita, ue -> ue, shita',
-    //     commands: [['shita'], ['ue']],
-    //     expect: [['ue'], ['shita']],
-    //   },
-    // ];
-    //
-    // testList.forEach((test) => {
-    //   specify(test.description, () => {
-    //     const chats = <NicoComment.ParsedChat[]>
-    //       test.commands.map((command) => {
-    //         const chat = new NicoComment.ParsedChat(<NicoComment.Chat> {});
-    //         chat.command = command;
-    //         return chat;
-    //       });
-    //     const results =
-    //       NicoCommentParser.calcPos(chats).map((c) => c.command);
-    //     assert.deepStrictEqual(results, test.expect);
-    //   });
-    // });
-  });
 });
