@@ -19,9 +19,10 @@ namespace NicoComment {
       this.polygon = new SAT.Polygon(
         new SAT.Vector(time, 0),
         [
-          new SAT.Vector(time, - width),
-          new SAT.Vector(time + 4, PLAYER_WIDTH),
-          new SAT.Vector(time + 4, PLAYER_WIDTH + width),
+          new SAT.Vector(0, 0),
+          new SAT.Vector(0, - width),
+          new SAT.Vector(4, PLAYER_WIDTH),
+          new SAT.Vector(4, PLAYER_WIDTH + width),
         ]
       );
     }
